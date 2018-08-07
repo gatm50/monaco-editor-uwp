@@ -144,9 +144,25 @@ namespace Monaco
             return SendScriptAsync("monaco.editor.setModelMarkers(model, " + JsonConvert.ToString(owner) + ", " + JsonConvert.SerializeObject(markers) + ");").AsAsyncAction();
         }
 
+        /// <summary>
+        /// Returns the primary position of the cursor.
+        /// </summary>
+        /// <returns></returns>
         public IAsyncOperation<Position> GetPositionAsync()
         {
             return SendScriptAsync<Position>("editor.getPosition();").AsAsyncOperation();
+        }
+
+        /// <summary>
+        /// Set the primary position of the cursor. This will remove any secondary cursors.
+        /// </summary>
+        /// <param name="position">New primary cursor's position</param>
+        /// <returns></returns>
+        public IAsyncAction SetPositionAsync(Position position)
+        {
+            var positionSerialized = JsonConvert.SerializeObject( position );
+            return SendScriptAsync($"editor.setPosition({positionSerialized});")
+              .AsAsyncAction();
         }
 
         /// <summary>

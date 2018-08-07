@@ -436,5 +436,11 @@ namespace MonacoEditorTestApp
             // Tell Editor about Update.
             Editor.RequestedTheme = RequestedTheme;
         }
+        
+        private async void ButtonSetPosition_Click( object sender, RoutedEventArgs e )
+        {
+            await this.Editor.SetPositionAsync(new Position(2, 5));
+            this.Editor.Focus(FocusState.Programmatic);
+        }
     }
 }
